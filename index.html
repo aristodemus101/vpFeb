@@ -77,8 +77,38 @@
     width:200px;height:200px;border-radius:50%;overflow:hidden;
     border:4px solid var(--pink-mid);
     box-shadow:0 6px 24px rgba(236,64,122,.3);
+    background:linear-gradient(160deg,#ffe0ea 0%,#ffc1d8 100%);
+    display:flex;align-items:center;justify-content:center;
+    gap:.2rem;flex-direction:column;
   }
-  .img-inner img{width:100%;height:100%;object-fit:cover;}
+  .penguin-duo{
+    display:flex;align-items:flex-end;justify-content:center;gap:4px;
+    position:relative;
+  }
+  .penguin{
+    font-size:5.2rem;
+    line-height:1;
+    filter:drop-shadow(0 3px 6px rgba(194,24,91,.25));
+    animation:gentleBob 2.4s ease-in-out infinite;
+  }
+  .penguin:nth-child(2){
+    animation-delay:.35s;
+    font-size:4.6rem;
+  }
+  @keyframes gentleBob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-5px);}
+  }
+  .penguin-hearts{
+    font-size:1.3rem;
+    position:absolute;top:-14px;left:50%;
+    transform:translateX(-50%);
+    animation:heartPop 1.8s ease-in-out infinite;
+  }
+  @keyframes heartPop{
+    0%,100%{transform:translateX(-50%) scale(1);opacity:.8;}
+    50%{transform:translateX(-50%) scale(1.25);opacity:1;}
+  }
 
   /* ─── TEXT ─── */
   .title{
@@ -160,16 +190,25 @@
 
   .boom-text{
     font-family:'Playfair Display',serif;
-    font-size:clamp(1.3rem,3.5vw,1.9rem);
-    color:var(--pink-light);font-style:italic;
+    font-size:clamp(1.6rem,4.5vw,2.6rem);
+    color:#fff;font-style:italic;font-weight:700;
     animation:boomPulse 1.2s ease-in-out infinite alternate;
-    text-shadow:0 2px 12px rgba(0,0,0,.2);margin-top:.4rem;
+    text-shadow:0 2px 16px rgba(0,0,0,.3);
+    margin-top:.6rem;line-height:1.5;text-align:center;
+    padding:0 1.5rem;
   }
-  @keyframes boomPulse{0%{transform:scale(1);}100%{transform:scale(1.06);}}
+  .boom-sub{
+    display:block;margin-top:.4rem;
+    font-size:clamp(.95rem,2.2vw,1.2rem);
+    font-weight:400;opacity:.85;
+    color:var(--pink-light);
+  }
+  @keyframes boomPulse{0%{transform:scale(1);}100%{transform:scale(1.04);}}
 
-  .click-hint{
-    font-size:.75rem;color:rgba(255,255,255,.5);
-    margin-top:1.8rem;letter-spacing:.6px;
+  .overlay-penguins{
+    font-size:2.8rem;margin:1rem 0 .2rem;
+    animation:gentleBob 2s ease-in-out infinite;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));
   }
 
   /* burst particles on overlay open */
@@ -190,20 +229,28 @@
 <div class="card-wrapper">
   <div class="card">
 
-    <!-- Center image -->
+    <!-- Penguin centerpiece -->
     <div class="img-wrap">
       <div class="glow-ring"></div>
       <div class="img-inner">
-        <img src="https://drive.google.com/uc?export=view&id=1rn8b4kmHPirMnl2spuqUPVFIVgtkiHQw" alt="Us 💕"/>
+        <div class="penguin-duo">
+          <span class="penguin-hearts">💕</span>
+          <span class="penguin">🐧</span>
+          <span class="penguin">🐧</span>
+        </div>
       </div>
     </div>
 
-    <h1 class="title">Hey, my love ✨</h1>
-    <p class="subtitle">I have a very important question for you…</p>
+    <h1 class="title">Hey Guguu ✨</h1>
+    <p class="subtitle">I have something important to tell you first…</p>
     <div class="divider"><div class="line"></div>💕<div class="line"></div></div>
     <p class="question">
-      Every moment with you feels like the start<br/>of the best story ever told.<br/><br/>
-      So… will you be <strong style="color:var(--pink-deep);">my Valentine</strong>? 💝
+      I love you so, so much.<br/>
+      More than words could ever say.<br/><br/>
+      Thank you so much for everything…<br/>
+      for being <em>you</em>.<br/><br/>
+      I can't wait to be with you forever. 💝<br/><br/>
+      So… will you be <strong style="color:var(--pink-deep);">my Valentine</strong>?
     </p>
 
     <!-- Button arena -->
@@ -222,8 +269,13 @@
   <div class="marquee-wrap">
     <div class="marquee-track" id="marqueeTrack"></div>
   </div>
-  <div class="boom-text">You just made me the happiest person alive 💝</div>
-  <p class="click-hint">— tap anywhere to close —</p>
+
+  <div class="overlay-penguins">🐧💕🐧</div>
+
+  <div class="boom-text">
+    I loooooveeeee uuuuuuuuuuu…<br/>
+    <span class="boom-sub">forever and ever, Guguu 💝</span>
+  </div>
 </div>
 
 <script>
@@ -391,11 +443,13 @@ function onYes(){
   const track = document.getElementById('marqueeTrack');
   const words = [
     'I LOVE YOU ❤️',
-    '— Always & Forever —',
     '💕 BE MY VALENTINE 💕',
+    '— Forever & Ever —',
+    'my Guguu ✨',
     'I LOVE YOU ❤️',
-    '— Always & Forever —',
-    '💕 BE MY VALENTINE 💕'
+    '💕 BE MY VALENTINE 💕',
+    '— Forever & Ever —',
+    'my Guguu ✨'
   ];
   track.innerHTML = words.map(w=>`<span>${w}</span>`).join('');
 
